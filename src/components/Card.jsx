@@ -1,10 +1,9 @@
 import '../styles/Card.css'
-import test from "../assets/hero.png"
-function Card() {
+
+function Card({name = "default", source}) {
     return ( 
         <a href='#' className='card'>
-            <img src={test} alt="" />
-            <p>lorem ipsum</p>
+            <img src={source} alt={name} />
         </a>
      );
 }

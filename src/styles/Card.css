@@ -7,6 +7,9 @@
 
     img {
         width: 100px;
-        height: 100px;
     }
+}
+
+.card:hover {
+    background-color: aqua;
 }
