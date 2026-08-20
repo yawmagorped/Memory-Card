@@ -4,6 +4,7 @@ import Card from './Card';
 
 function CardPack() {
     const [cards, setCards] = useState([]);
+    const [selectedCards, setSelectedCards] = useState([]);
     // const [id, setId] = useState(null);
 
     function getPackOfCardsID() {
@@ -30,7 +31,6 @@ function CardPack() {
             })
     }
 
-    
     useEffect(() => {
         async function handleRandomCards(count) {
             let id = null;
@@ -38,17 +38,30 @@ function CardPack() {
                 id = await getPackOfCardsID();
             }
             let cards = await getRandomCards(id, count);
-            console.log(cards);
             setCards(cards);
         }
 
-        handleRandomCards(10);
+        handleRandomCards(52);
     }, [])
 
+    function handleClick(code) {
+        
+        const card = cards.find(card => card.code === code);
+        if (!card) return;
+
+        if (!selectedCards.find(card => card.code === code))
+            setSelectedCards(prev => [...prev, card]);
+
+        // setCards(prev => prev.filter(card => card.code !== code));
+        console.log("cards:");
+        cards.forEach(card => console.log(card))
+        console.log("selectedCards:");
+        selectedCards.forEach(card => console.log(card));
+    }
 
     return (
         <div className='cardPack'>
-            {cards.map(key => <Card name={key.value} source={key.image}/>)}
+            {cards.map(key => <Card key={key.code} name={key.value} source={key.image} handleClick={() => handleClick(key.code)}/>)}
         </div>
     )
 }
